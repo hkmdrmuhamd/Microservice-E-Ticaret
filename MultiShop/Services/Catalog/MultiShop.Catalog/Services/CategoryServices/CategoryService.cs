@@ -8,7 +8,7 @@ namespace MultiShop.Catalog.Services.CategoryServices
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IMongoCollection<Category> _categoryCollection;
+        private readonly IMongoCollection<Category> _categoryCollection; //MongoDB veritabanı koleksiyonu
         private readonly IMapper _mapper;
 
         public CategoryService(IMapper mapper, IDatabaseSettings _databaseSettings)
