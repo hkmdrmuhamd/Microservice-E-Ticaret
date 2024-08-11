@@ -1,0 +1,33 @@
+**/wwwroot/lib/*
+**/obj/*
+**/bin/* 
+
+# Visual Studio'dan gelen dosyalar
+.vs/
+.vscode/
+
+# Kullanýcý spesifik ayar dosyalarý
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Derleme dosyalarý
+*.dll
+*.pdb
+*.exe
+*.app
+*.out
+*.lib
+*.nupkg
+*.snk
+
+# Proje dizininde yer alan geçici dosyalar
+.DS_Store
+Thumbs.db
+
+# Yapý ayarlarý
+launchSettings.json
+
+# Diðer geçici veya gereksiz dosyalar
+DocumentLayout.json
