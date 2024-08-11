@@ -13,7 +13,7 @@ namespace MultiShop.Catalog.Entities
         public string ProductImageUrl { get; set; }
         public string ProductDescription { get; set; }
         public string CategoryId { get; set; }
-        [BsonIgnore]
+        [BsonIgnore] //Category bilgisi MongoDB'de tutmak gereksiz işlem olacağı için bu alanı ignore ediyoruz.
         public Category Category { get; set; }
     }
 }
