@@ -13,7 +13,7 @@ namespace MultiShop.Discount.Services
             _context = context;
         }
 
-        public async Task CreateCouponAsync(CreateCouponDto createCouponDto)
+        public async Task CreateCouponAsync(CreateDiscountCouponDto createCouponDto)
         {
             string query = "INSERT INTO Coupon (Code, Rate, IsActive, ValidDate) VALUES (@Code, @rate, @isActive, @validDate)";
             var parameters = new DynamicParameters(); //Dapper'da parametreleri tutmak için kullanılır.
@@ -38,29 +38,29 @@ namespace MultiShop.Discount.Services
             }
         }
 
-        public async Task<List<ResultCouponDto>> GetAllCouponAsync()
+        public async Task<List<ResultDiscountCouponDto>> GetAllCouponAsync()
         {
             string query = "SELECT * FROM Coupons";
             using (var connection = _context.CreateConnection())
             {
-                var values = await connection.QueryAsync<ResultCouponDto>(query);
+                var values = await connection.QueryAsync<ResultDiscountCouponDto>(query);
                 return values.ToList();
             }
         }
 
-        public async Task<GetByIdCouponDto> GetByIdACouponsync(int id)
+        public async Task<GetByIdDiscountCouponDto> GetByIdCouponAsync(int id)
         {
             string query = "SELECT * FROM Coupons WHERE CouponId = @Id";
             var parameters = new DynamicParameters();
             parameters.Add("@Id", id);
             using (var connection = _context.CreateConnection())
             {
-                var value = await connection.QueryFirstOrDefaultAsync<GetByIdCouponDto>(query, parameters);
+                var value = await connection.QueryFirstOrDefaultAsync<GetByIdDiscountCouponDto>(query, parameters);
                 return value;
             }
         }
 
-        public async Task UpdateCouponAsync(UpdateCouponDto updateCouponDto)
+        public async Task UpdateCouponAsync(UpdateDiscountCouponDto updateCouponDto)
         {
             string query = "UPDATE Coupons SET Code = @Code, Rate = @Rate, IsActive = @IsActive, ValidDate = @ValidDate WHERE CouponId = @couponId";
             var parameters = new DynamicParameters();
