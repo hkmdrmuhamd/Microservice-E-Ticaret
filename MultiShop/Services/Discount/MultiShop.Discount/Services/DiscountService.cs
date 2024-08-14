@@ -13,7 +13,7 @@ namespace MultiShop.Discount.Services
             _context = context;
         }
 
-        public async Task CreateCouponAsync(CreateDiscountCouponDto createCouponDto)
+        public async Task CreateDiscountCouponAsync(CreateDiscountCouponDto createCouponDto)
         {
             string query = "INSERT INTO Coupon (Code, Rate, IsActive, ValidDate) VALUES (@Code, @rate, @isActive, @validDate)";
             var parameters = new DynamicParameters(); //Dapper'da parametreleri tutmak için kullanılır.
@@ -27,7 +27,7 @@ namespace MultiShop.Discount.Services
             }
         }
 
-        public async Task DeleteCouponAsync(int id)
+        public async Task DeleteDiscountCouponAsync(int id)
         {
             string query = "DELETE FROM Coupon WHERE CouponId = @Id";
             var parameters = new DynamicParameters();
@@ -38,7 +38,7 @@ namespace MultiShop.Discount.Services
             }
         }
 
-        public async Task<List<ResultDiscountCouponDto>> GetAllCouponAsync()
+        public async Task<List<ResultDiscountCouponDto>> GetAllDiscountCouponAsync()
         {
             string query = "SELECT * FROM Coupons";
             using (var connection = _context.CreateConnection())
@@ -48,7 +48,7 @@ namespace MultiShop.Discount.Services
             }
         }
 
-        public async Task<GetByIdDiscountCouponDto> GetByIdCouponAsync(int id)
+        public async Task<GetByIdDiscountCouponDto> GetByIdDiscountCouponAsync(int id)
         {
             string query = "SELECT * FROM Coupons WHERE CouponId = @Id";
             var parameters = new DynamicParameters();
@@ -60,7 +60,8 @@ namespace MultiShop.Discount.Services
             }
         }
 
-        public async Task UpdateCouponAsync(UpdateDiscountCouponDto updateCouponDto)
+
+        public async Task UpdateDiscountCouponAsync(UpdateDiscountCouponDto updateCouponDto)
         {
             string query = "UPDATE Coupons SET Code = @Code, Rate = @Rate, IsActive = @IsActive, ValidDate = @ValidDate WHERE CouponId = @couponId";
             var parameters = new DynamicParameters();
