@@ -1,6 +1,7 @@
 **/wwwroot/lib/*
 **/obj/*
-**/bin/* 
+**/bin/*
+**/tempkey.jwk
 
 # Visual Studio'dan gelen dosyalar
 .vs/
