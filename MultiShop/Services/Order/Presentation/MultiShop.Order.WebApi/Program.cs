@@ -5,7 +5,7 @@ using MultiShop.Order.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(IRepository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(IRepository<>)); 
 builder.Services.AddApplicationService(builder.Configuration); //mediator registiration
 
 #region
