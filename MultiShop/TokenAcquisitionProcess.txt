@@ -1,0 +1,9 @@
+1- Ýlk olarak Startup dosyamýza builder = services. olan kýsýma IdentityResources'dan sonra 
+.AddInMemoryApiResources(Config.ApiResources) registiration iþleminin yapýlýp yapýlmadýðý kontrol edilir.
+
+2- Postman'de https://localhost:5001/connect/token adresi girilir ve Post iþlemi seçilir. 
+
+3- Body kýsmýnda x-www-form-urlencoded seçilir.
+
+4- Key alanlarýna client_id, client_secret, grant_type deðerleri girilir. Value alanlarýna ise bu deðerlerin 
+karþýlýklarý Config dosyasýndaki düzenlemelere göre yazýlýr ve Send butonuna basýlýr.
