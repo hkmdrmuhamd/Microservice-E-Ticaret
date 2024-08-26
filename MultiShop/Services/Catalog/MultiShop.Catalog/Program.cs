@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using MultiShop.Catalog.Services.CategoryServices;
 using MultiShop.Catalog.Services.ProductDetailServices;
@@ -7,6 +8,13 @@ using MultiShop.Catalog.Settings;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.Authority = builder.Configuration["IdentityServerUrl"]; //IdentityServerUrl'i uygulama ayarlarýndan okunur bu deðer karþýlýðýnda ilgili Url'yi çalýþtýrýr.
+    options.Audience = "ResourceCatalog"; //Hangi kaynaða eriþim saðlanacaðýný belirtir. (Kaynak adý IdentityServer'da Config dosyasýnda tanýmlanmýþ olmalýdýr.)
+    options.RequireHttpsMetadata = false; //Https zorunluluðunu kaldýrýr.
+});
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -36,6 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
