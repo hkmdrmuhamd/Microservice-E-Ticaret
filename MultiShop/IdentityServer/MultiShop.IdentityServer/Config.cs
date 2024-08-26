@@ -79,7 +79,7 @@ namespace MultiShop.IdentityServer
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile
                 },
-                AccessTokenLifetime = 600 //10 dk
+                AccessTokenLifetime = 600 //Token geçerlilik süresidir eğer girilmezse default olarak 3600 saniye(1 saat) geçerli olacaktır.
             }
         };
     }
