@@ -28,6 +28,7 @@ namespace MultiShop.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalApiAuthentication(); // Authentication işlemi için gerekli olan middleware'yi ekliyoruz.
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,6 +82,7 @@ namespace MultiShop.IdentityServer
 
             app.UseRouting();
             app.UseIdentityServer();
+            app.UseAuthentication(); // Authentication middleware'ini ekliyoruz.
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
