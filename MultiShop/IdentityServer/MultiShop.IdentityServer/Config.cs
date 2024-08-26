@@ -22,6 +22,7 @@ namespace MultiShop.IdentityServer
             {
                 Scopes = { "OrderFullPermission" }
             },
+            new ApiResource(IdentityServerConstants.LocalApi.ScopeName) //LocalApi.ScopeName, Kullanıcılar'a IdentityServer'a erişim izni verip API'nin kullanılabilmesini sağlayan scope'dur.
         };
 
         //IdentityResources, IdentityServer'a kayıtlı olan kullanıcıların hangi bilgilerine erişebileceğimizi belirler.
@@ -38,7 +39,8 @@ namespace MultiShop.IdentityServer
             new ApiScope("CatalogFullPermission", "Full authority for catalog operations"),
             new ApiScope("CatalogReadPermission", "Reading authority for catalog operations"),
             new ApiScope("DiscountFullPermission", "Full authority for discount operations"),
-            new ApiScope("OrderFullPermission", "Full authority for order operations")
+            new ApiScope("OrderFullPermission", "Full authority for order operations"),
+            new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
         };
 
         //Client'ların sahip olacakları izinleri belirlemek için:
