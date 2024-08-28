@@ -1,6 +1,25 @@
+using MultiShop.Cargo.BusinessLayer.Abstract;
+using MultiShop.Cargo.BusinessLayer.Concrete;
+using MultiShop.Cargo.DataAccessLayer.Abstract;
+using MultiShop.Cargo.DataAccessLayer.Concrete;
+using MultiShop.Cargo.DataAccessLayer.EntityFramework;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
+#region
+builder.Services.AddDbContext<CargoContext>();
+
+builder.Services.AddScoped<ICargoCompanyDal, EfCargoCompanyDal>();
+builder.Services.AddScoped<ICargoCustomerDal, EfCargoCustomerDal>();
+builder.Services.AddScoped<ICargoDetailDal, EfCargoDetailDal>();
+builder.Services.AddScoped<ICargoOperationDal, EfCargoOperationDal>();
+
+builder.Services.AddScoped<ICargoCompanyService, CargoCompanyManager>();
+builder.Services.AddScoped<ICargoCustomerService, CargoCustomerManager>();
+builder.Services.AddScoped<ICargoDetailService, CargoDetailManager>();
+builder.Services.AddScoped<ICargoOperationService, CargoOperationManager>();
+#endregion
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
