@@ -3,3 +3,4 @@ Catalog  --> 7000
 Discount --> 7001
 Order    --> 7002
 Cargo    --> 7003
+Basket   --> 7004
