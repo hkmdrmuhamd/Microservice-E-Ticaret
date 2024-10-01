@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Shared\Components\_OfferDiscountDefaultComponentPartial\Default.cshtml~RF2c927d24.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.17" />
   </ItemGroup>
 
@@ -15,6 +19,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\images\logos\" />
     <Folder Include="wwwroot\images\categories\" />
+    <Folder Include="wwwroot\images\offerdiscount\" />
   </ItemGroup>
 
   <ItemGroup>
