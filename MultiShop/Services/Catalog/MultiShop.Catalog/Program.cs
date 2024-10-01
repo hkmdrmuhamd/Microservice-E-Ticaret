@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MultiShop.Catalog.Services.CategoryServices;
 using MultiShop.Catalog.Services.FeatureServices;
 using MultiShop.Catalog.Services.FeatureSliderServices;
+using MultiShop.Catalog.Services.OfferDiscountServices;
 using MultiShop.Catalog.Services.ProductDetailServices;
 using MultiShop.Catalog.Services.ProductImageServices;
 using MultiShop.Catalog.Services.ProductServices;
@@ -19,20 +20,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.RequireHttpsMetadata = false; //Https zorunluluðunu kaldýrýr.
 });
 
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IProductDetailService , ProductDetailService>();
-builder.Services.AddScoped<IProductImageService , ProductImageService>();
-builder.Services.AddScoped<IFeatureSliderService, FeatureSliderService>();
-builder.Services.AddScoped<ISpecialOfferService, SpecialOfferService>();
-builder.Services.AddScoped<IFeatureService, FeatureService>();
+#region Dependency Injection
+    builder.Services.AddScoped<IProductService, ProductService>();
+    builder.Services.AddScoped<ICategoryService, CategoryService>();
+    builder.Services.AddScoped<IProductDetailService , ProductDetailService>();
+    builder.Services.AddScoped<IProductImageService , ProductImageService>();
+    builder.Services.AddScoped<IFeatureSliderService, FeatureSliderService>();
+    builder.Services.AddScoped<ISpecialOfferService, SpecialOfferService>();
+    builder.Services.AddScoped<IFeatureService, FeatureService>();
+    builder.Services.AddScoped<IOfferDiscountService, OfferDiscountService>();
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings))); //DatabaseSettings yapýlandýrma bölümünü, uygulama ayarlarýndan okur ve ayarlar
-builder.Services.AddScoped<IDatabaseSettings>(sp =>  //DatabaseSettings içindeki deðerleri alýp kullanýma hazýrlar.
-    sp.GetRequiredService<IOptions<DatabaseSettings>>().Value
-);
+    builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+    builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings))); //DatabaseSettings yapýlandýrma bölümünü, uygulama ayarlarýndan okur ve ayarlar
+    builder.Services.AddScoped<IDatabaseSettings>(sp =>  //DatabaseSettings içindeki deðerleri alýp kullanýma hazýrlar.
+        sp.GetRequiredService<IOptions<DatabaseSettings>>().Value
+    );
+#endregion
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
