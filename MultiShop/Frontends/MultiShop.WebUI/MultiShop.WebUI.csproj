@@ -19,7 +19,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\images\logos\" />
     <Folder Include="wwwroot\images\categories\" />
-    <Folder Include="wwwroot\images\offerdiscount\" />
   </ItemGroup>
 
   <ItemGroup>
