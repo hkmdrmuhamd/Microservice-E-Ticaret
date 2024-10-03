@@ -1,0 +1,26 @@
+﻿@model CreateBrandDto
+
+@{
+    ViewData["Title"] = "CreateBrand";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <div class="bs-example" data-example-id="bordered-table">
+                    <form method="post">
+                        <h4>Marka Adı</h4>
+                        <input type="text" class="form-control" asp-for="BrandName" />
+                        <br />
+                        <h4>Marka Görseli</h4>
+                        <input type="text" class="form-control" asp-for="ImageUrl" />
+                        <br />
+                        <button class="btn btn-primary">Marka Ekle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
