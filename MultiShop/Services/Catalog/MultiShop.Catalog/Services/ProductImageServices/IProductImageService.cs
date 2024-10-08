@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using MongoDB.Driver;
-using MultiShop.Catalog.Dtos.ProductImageDtos;
-using MultiShop.Catalog.Entities;
-using MultiShop.Catalog.Settings;
+﻿using MultiShop.Catalog.Dtos.ProductImageDtos;
 
 namespace MultiShop.Catalog.Services.ProductImageServices
 {
@@ -13,5 +9,6 @@ namespace MultiShop.Catalog.Services.ProductImageServices
     Task UpdateProductImageAsync(UpdateProductImageDto updateProductImageDto);
     Task DeleteProductImageAsync(string id);
     Task<GetByIdProductImageDto> GetByIdProductImageAsync(string id);
+    Task<GetByIdProductImageDto> GetByProductIdProductImageAsync(string id);
     }
 }
