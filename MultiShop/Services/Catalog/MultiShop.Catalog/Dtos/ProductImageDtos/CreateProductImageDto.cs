@@ -2,9 +2,7 @@
 {
     public class CreateProductImageDto
     {
-        public string Image1 { get; set; }
-        public string Image2 { get; set; }
-        public string Image3 { get; set; }
+        public List<string> Image { get; set; } = new List<string>();
         public string ProductId { get; set; }
     }
 }
