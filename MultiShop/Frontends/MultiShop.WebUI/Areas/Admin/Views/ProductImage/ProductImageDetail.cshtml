@@ -1,0 +1,54 @@
+﻿@model UpdateProductImageDto
+
+@{
+    ViewData["Title"] = "ProductImageDetail";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <div class="bs-example" data-example-id="bordered-table">
+                    <form method="post">
+                        <input type="hidden" asp-for="ProductImageId" />
+                        <input type="hidden" asp-for="ProductId" />
+                        <h3>Mevcut Görseller</h3>
+                        <div id="imageContainer">
+                            @foreach (var imageUrl in Model.Image)
+                            {
+                                <div class="form-group">
+                                    <label>Görsel URL:</label>
+                                    <input type="text" class="form-control" name="Image" value="@imageUrl" />
+                                </div>
+                            }
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="addNewImageField()">Yeni Görsel Ekle</button>
+                        <button type="submit" class="btn btn-success">Güncelle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function addNewImageField() {
+        var imageContainer = document.getElementById("imageContainer");
+        var newDiv = document.createElement("div");
+        newDiv.classList.add("form-group");
+
+        var newLabel = document.createElement("label");
+        newLabel.innerHTML = "Görsel URL:";
+
+        var newInput = document.createElement("input");
+        newInput.type = "text";
+        newInput.name = "Image";
+        newInput.classList.add("form-control");
+
+        newDiv.appendChild(newLabel);
+        newDiv.appendChild(newInput);
+        imageContainer.appendChild(newDiv);
+    }
+</script>
+
