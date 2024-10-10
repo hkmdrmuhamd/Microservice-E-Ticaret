@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MultiShop.DtoLayer.CommentDtos;
 using Newtonsoft.Json;
 using System.Text;
@@ -63,6 +64,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
         [Route("UpdateComment/{id}")]
         public async Task<IActionResult> UpdateComment(UpdateCommentDto updateCommentDto)
         {
+            updateCommentDto.Status = true;
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateCommentDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
