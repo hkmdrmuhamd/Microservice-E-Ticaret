@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiShop.Comment.Context;
 
@@ -10,9 +11,10 @@ using MultiShop.Comment.Context;
 namespace MultiShop.Comment.Migrations
 {
     [DbContext(typeof(CommentContext))]
-    partial class CommentContextModelSnapshot : ModelSnapshot
+    [Migration("20241010154249_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
