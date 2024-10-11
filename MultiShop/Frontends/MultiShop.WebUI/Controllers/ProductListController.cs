@@ -12,8 +12,13 @@ namespace MultiShop.WebUI.Controllers
 
         public IActionResult ProductDetail(string id)
         {
-            ViewBag.ProductID = id;
-            return View();
+            if(id != "string")
+            {
+                ViewBag.ProductID = id;
+                return View();
+            }
+
+            return RedirectToAction("Index", "ProductDetail");
         }
     }
 }
