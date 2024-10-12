@@ -5,12 +5,15 @@
         <div class="carousel-inner bg-light">
             @{
                 bool isFirst = true;
-                foreach (var image in Model.Image)
+                if (Model != null)
                 {
-                    <div class="carousel-item @(isFirst ? "active" : "")">
-                        <img class="w-100 h-100" src="@image" alt="Image">
-                    </div>
-                    isFirst = false;
+                    foreach (var image in Model.Image)
+                    {
+                        <div class="carousel-item @(isFirst ? "active" : "")">
+                            <img class="w-100 h-100" src="@image" alt="Image">
+                        </div>
+                        isFirst = false;
+                    }
                 }
             }
         </div>
