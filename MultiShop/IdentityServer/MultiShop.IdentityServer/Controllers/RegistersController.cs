@@ -4,11 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using MultiShop.IdentityServer.Dtos;
 using MultiShop.IdentityServer.Models;
 using System.Threading.Tasks;
-using static IdentityServer4.IdentityServerConstants;
 
 namespace MultiShop.IdentityServer.Controllers
 {
-    [Authorize(LocalApi.PolicyName)] // Bu controller'a sadece LocalApi.PolicyName (yani belirli kurallara uyanlar) yetkisine sahip olanlar erişebilir.
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class RegistersController : ControllerBase
