@@ -5,6 +5,7 @@
 **/obj/*
 **/bin/*
 **/tempkey.jwk
+**/Requirements/TestUsers.txt
 
 # Visual Studio'dan gelen dosyalar
 .vs/
