@@ -6,6 +6,8 @@
 **/bin/*
 **/tempkey.jwk
 **/Requirements/TestUsers.txt
+**/TestController.cs
+**/Test/Index.cshtml
 
 # Visual Studio'dan gelen dosyalar
 .vs/
