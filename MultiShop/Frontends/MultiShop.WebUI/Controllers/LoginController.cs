@@ -1,4 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using MultiShop.DtoLayer.IdentityDtos.LoginDtos;
+using MultiShop.WebUI.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
 
 namespace MultiShop.WebUI.Controllers
 {
@@ -11,8 +19,49 @@ namespace MultiShop.WebUI.Controllers
 			_httpClientFactory = httpClientFactory;
 		}
 
+		[HttpGet]
 		public IActionResult Index()
 		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Index(CreateLoginDto createLoginDto)
+		{
+			var client = _httpClientFactory.CreateClient();
+			var content = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
+			var response = await client.PostAsync("http://localhost:5001/api/Logins", content);
+			if(response.IsSuccessStatusCode)
+			{
+				var jsonData = await response.Content.ReadAsStringAsync();
+				var tokenModel = JsonSerializer.Deserialize<JwtResponseModel>(jsonData, new JsonSerializerOptions //Modeli alır ve json'dan deserialize eder
+				{
+					// JSON'daki property adları camelCase ise, otomatik olarak modeldeki PascalCase adlara map'lenmesini sağlar
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+				});
+
+				if(tokenModel != null)
+				{
+					// JwtSecurityTokenHandler sınıfını kullanabilmek için Microsoft.AspNetCore.Authentication.JwtBearer paketini yüklememiz gerekmektedir
+					JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler(); // JWT token'ını işleyecek bir handler oluşturur
+					var token = handler.ReadJwtToken(tokenModel.Token); // Token string'ini JWT objesine çevirir
+					var claims = token.Claims.ToList(); // JWT içindeki tüm claim'leri listeye dönüştürür (claim: token'daki kullanıcıya ait bilgiler)
+
+					if (tokenModel.Token != null)
+					{
+						claims.Add(new Claim("multishoptoken", tokenModel.Token)); //Token'i çözeceğimiz sayfalarda kullanmak için isim verip claim'lere kaydeder.
+						var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme); // JWT claim'lerini kullanarak bir kimlik oluşturur
+						var authProps = new AuthenticationProperties // Kimlik doğrulama özelliklerini ayarlar (token'ın bitiş süresi ve kalıcı olup olmayacağı)
+						{
+							ExpiresUtc = tokenModel.ExpireDate, // Token'ın ne zaman sona ereceğini ayarlar
+							IsPersistent = true // Kullanıcı oturumunun kalıcı olmasını sağlar
+						};
+
+						await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps); // Kullanıcıyı belirlenen kimlik ve özelliklerle oturum açtırır (JWT ile kimlik doğrulaması yapılır)
+						return RedirectToAction("Index", "Default");
+					}
+				}
+			}
 			return View();
 		}
 	}
