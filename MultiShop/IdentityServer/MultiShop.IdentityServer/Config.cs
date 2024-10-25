@@ -9,27 +9,12 @@ namespace MultiShop.IdentityServer
         public static IEnumerable<ApiResource> ApiResources => new ApiResource[]
         {
             //ResourceCatalog ismine sahip bir api oluşturmak için:
-            new ApiResource("ResourceCatalog") 
-            {
-                //Bu apiye erişebilecek olan scope'lar.(Yani ResourceCatalog'a erişimi olanlar CatalogFullPermission'a ve CatalogReadPermission'a erişebilir)
-                Scopes = { "CatalogFullPermission", "CatalogReadPermission" }
-            },
-            new ApiResource("ResourceDiscount")
-            {
-                Scopes = { "DiscountFullPermission" }
-            },
-            new ApiResource("ResourceOrder")
-            {
-                Scopes = { "OrderFullPermission" }
-            },
-            new ApiResource("ResoruceCargo")
-            {
-                Scopes = { "CargoFullPermission" }
-            },
-            new ApiResource("ResoruceBasket")
-            {
-                Scopes = { "BasketFullPermission" }
-            },
+            new ApiResource("ResourceCatalog"){ Scopes = { "CatalogFullPermission", "CatalogReadPermission" } }, //Bu apiye erişebilecek olan scope'lar.(Yani ResourceCatalog'a erişimi olanlar CatalogFullPermission'a ve CatalogReadPermission'a erişebilir)
+            new ApiResource("ResourceDiscount"){ Scopes = { "DiscountFullPermission" } },
+            new ApiResource("ResourceOrder"){ Scopes = { "OrderFullPermission" } },
+            new ApiResource("ResoruceCargo"){ Scopes = { "CargoFullPermission" } },
+            new ApiResource("ResoruceBasket"){ Scopes = { "BasketFullPermission" } },
+            new ApiResource("ResoruceOcelot"){ Scopes = { "OcelotFullPermission" } },
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName) //LocalApi.ScopeName, Kullanıcılar'a IdentityServer'a erişim izni verip API'nin kullanılabilmesini sağlayan scope'dur.
         };
 
@@ -50,6 +35,8 @@ namespace MultiShop.IdentityServer
             new ApiScope("OrderFullPermission", "Full authority for order operations"),
             new ApiScope("CargoFullPermission", "Full authority for cargo operations"),
             new ApiScope("BasketFullPermission", "Full authority for basket operations"),
+            new ApiScope("BasketFullPermission", "Full authority for basket operations"),
+            new ApiScope("OcelotFullPermission", "Full authority for ocelot operations"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -63,7 +50,7 @@ namespace MultiShop.IdentityServer
                 ClientName = "Multi Shop Visitor User",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = { new Secret("multishopsecret".Sha256()) },
-                AllowedScopes = { "CatalogReadPermission" }
+                AllowedScopes = { "CatalogReadPermission", "OcelotFullPermission" }
             },
 
             //Manager
@@ -73,7 +60,7 @@ namespace MultiShop.IdentityServer
                 ClientName = "Multi Shop Manager User",
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword, //ResourceOwnerPassword, kullanıcı adı ve şifre ile token alınmasını sağlar.
                 ClientSecrets = { new Secret("multishopsecret".Sha256()) },
-                AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", "BasketFullPermission" }
+                AllowedScopes = { "CatalogFullPermission", "CatalogReadPermission", "BasketFullPermission", "OcelotFullPermission" }
             },
 
             //Admin
@@ -86,7 +73,7 @@ namespace MultiShop.IdentityServer
                 AllowedScopes = 
                 { 
                     "CatalogFullPermission", "CatalogReadPermission", "DiscountFullPermission", 
-                    "OrderFullPermission", "CargoFullPermission", "BasketFullPermission",
+                    "OrderFullPermission", "CargoFullPermission", "BasketFullPermission", "OcelotFullPermission",
                     IdentityServerConstants.LocalApi.ScopeName, 
                     IdentityServerConstants.StandardScopes.Email,
                     IdentityServerConstants.StandardScopes.OpenId,
