@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": false, //Uygulama başladığında tarayıcıyı açmasını istemiyorsak false yaparız.
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7000", //Uygulamanın çalışacağı adresdir portları düzenli bir şekilde verip karışıklıkları giderebiliriz
+      "applicationUrl": "http://localhost:7000", //Uygulamanın çalışacağı adresdir portları düzenli bir şekilde verip karışıklıkları giderebiliriz
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
