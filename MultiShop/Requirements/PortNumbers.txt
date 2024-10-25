@@ -7,3 +7,5 @@ Cargo    --> 7003
 Basket   --> 7004
 Frontend --> 7005
 Comment  --> 7006
+Payment  --> 7007
+Images   --> 7008
