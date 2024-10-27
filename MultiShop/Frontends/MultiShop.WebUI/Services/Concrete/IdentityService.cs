@@ -15,19 +15,22 @@ namespace MultiShop.WebUI.Services.Concrete
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ClientSettings _clientSettings;
+        private readonly ServiceApiSettings _serviceApiSettings;
 
-        public IdentityService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IOptions<ClientSettings> clientSettings)
+        public IdentityService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, 
+            IOptions<ClientSettings> clientSettings, IOptions<ServiceApiSettings> serviceApiSettings) //IOptions, ServiceApiSettings veya ClientSettings gibi classlardaki değerleri almak için kullanılır
         {
             _httpClient = httpClient;
             _httpContextAccessor = httpContextAccessor;
-            _clientSettings = clientSettings.Value;
+            _clientSettings = clientSettings.Value; //Value, IOptions'un içindeki değeri almak için kullanılır
+            _serviceApiSettings = serviceApiSettings.Value;
         }
 
         public async Task<bool> SignIn(SignInDto signInDto)
         {
             var discoveryEndPoint = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = "http://localhost:5001",
+                Address = _serviceApiSettings.IdentityServerUrl, //Bu kullanım ile IdentityServer'ın URL'sini alırız
                 Policy = new DiscoveryPolicy
                 {
                     RequireHttps = false
