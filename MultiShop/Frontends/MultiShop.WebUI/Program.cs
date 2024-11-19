@@ -40,6 +40,9 @@ builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection(
 
 builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();
 
+builder.Services.AddScoped<ClientCredentialTokenHandler>();
+builder.Services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
+
 var values = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 //IdentityServer adresine yapilan her istekte otomatik olarak bir token ekleyen HttpClient'i yapilandirir. Bu sayede UserService kimlik dogrulama gerektiren islemler icin kullanilabilir hale gelir
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
@@ -54,7 +57,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient<ICategoryService, CategoryService>(opt => //Controller'da categories gordugunde ocelot araciligiyla catalog servisine yonlendirir
 {
     opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
-});
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 var app = builder.Build();
 
