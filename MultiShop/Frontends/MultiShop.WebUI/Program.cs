@@ -30,6 +30,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         opt.SlidingExpiration = true;
     });
 
+builder.Services.AddAccessTokenManagement(); // Token yonetimi icin gerekli olan servisleri ekler
+
 builder.Services.AddHttpContextAccessor(); // HTTP context eriþimini saðlamak için kullanýlýr
 
 builder.Services.AddScoped<ILoginService, LoginService>();
