@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Services\CatalogServices\ProductServices\IProductService.cs~RF15c8689b.TMP" />
     <None Remove="Views\Shared\Components\_OfferDiscountDefaultComponentPartial\Default.cshtml~RF2c927d24.TMP" />
   </ItemGroup>
 
