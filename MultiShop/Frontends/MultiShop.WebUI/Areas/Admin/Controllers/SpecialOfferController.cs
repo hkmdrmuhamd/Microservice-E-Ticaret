@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.CatalogDtos.SpecialOfferDtos;
 using MultiShop.WebUI.Services.CatalogServices.SpecialOfferServices;
 
@@ -23,6 +24,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View(values);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("CreateSpecialOffer")]
         public IActionResult CreateSpecialOffer()
@@ -31,6 +33,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("CreateSpecialOffer")]
         public async Task<IActionResult> CreateSpecialOffer(CreateSpecialOfferDto createSpecialOfferDto)
@@ -39,6 +42,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "SpecialOffer", new { area = "Admin" });
         }
 
+        [Authorize]
         [Route("DeleteSpecialOffer/{id}")]
         public async Task<IActionResult> DeleteSpecialOffer(string id)
         {
@@ -46,6 +50,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "SpecialOffer", new { area = "Admin" });
         }
 
+        [Authorize]
         [HttpGet]
         [Route("UpdateSpecialOffer/{id}")]
         public async Task<IActionResult> UpdateSpecialOffer(string id)
@@ -62,6 +67,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View(updateSpecialOfferDto);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("UpdateSpecialOffer/{id}")]
         public async Task<IActionResult> UpdateSpecialOffer(UpdateSpecialOfferDto updateSpecialOfferDto)

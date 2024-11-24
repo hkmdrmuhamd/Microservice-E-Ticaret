@@ -33,6 +33,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View(values);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("CreateProduct")]
         public async Task<IActionResult> CreateProduct()
@@ -49,6 +50,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("CreateProduct")]
         public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
@@ -57,6 +59,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "Product", new { area = "Admin" });
         }
 
+        [Authorize]
         [HttpGet]
         [Route("UpdateProduct/{id}")]
         public async Task<IActionResult> UpdateProduct(string id)
@@ -74,6 +77,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View(value);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("UpdateProduct/{id}")]
         public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
@@ -82,6 +86,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "Product", new { area = "Admin" });
         }
 
+        [Authorize]
         [Route("DeleteProduct/{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {

@@ -28,6 +28,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View(values);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("CreateCategory")]
         public IActionResult CreateCategory()
@@ -36,6 +37,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("CreateCategory")]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
@@ -44,6 +46,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "Category", new { area = "Admin" });
         }
 
+        [Authorize]
         [Route("DeleteCategory/{id}")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
@@ -51,6 +54,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "Category", new { area = "Admin" });
         }
 
+        [Authorize]
         [HttpGet]
         [Route("UpdateCategory/{id}")]
         public async Task<IActionResult> UpdateCategory(string id)
@@ -66,6 +70,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
             return View(updateCategoryDto);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("UpdateCategory/{id}")]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
