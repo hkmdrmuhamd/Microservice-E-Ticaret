@@ -1,123 +1,88 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiShop.DtoLayer.CatalogDtos.AboutDtos;
-using Newtonsoft.Json;
-using System.Text;
+using MultiShop.WebUI.Services.CatalogServices.AboutServices;
 
 namespace MultiShop.WebUI.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
     [Area("Admin")]
     [Route("Admin/About")]
     public class AboutController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IAboutService _aboutService;
 
-        public AboutController(IHttpClientFactory httpClientFactory)
+        public AboutController(IAboutService aboutService)
         {
-            _httpClientFactory = httpClientFactory;
+            _aboutService = aboutService;
         }
 
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
-            ViewBag.V0 = "Hakkımızda İşlemleri";
-            ViewBag.V1 = "Ana Sayfa";
-            ViewBag.V2 = "Hakkımızda Alanı";
-            ViewBag.V3 = "Hakkımızda Biligileri Listesi";
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7000/api/Abouts");
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);
-                return View(value);
-            }
-
-            return View();
+            AboutViewBagList();
+            var values = await _aboutService.GetAllAboutAsync();
+            return View(values);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("CreateAbout")]
         public IActionResult CreateAbout()
         {
-            ViewBag.V0 = "Hakkımızda İşlemleri";
-            ViewBag.V1 = "Ana Sayfa";
-            ViewBag.V2 = "Hakkımızda Alanı";
-            ViewBag.V3 = "Hakkımızda Biligileri Listesi";
-
+            AboutViewBagList();
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("CreateAbout")]
         public async Task<IActionResult> CreateAbout(CreateAboutDto createAboutDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(createAboutDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7000/api/Abouts", stringContent);
-            
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "About", new { area = "Admin" });
-            }
-
-            return View();
+            await _aboutService.CreateAboutAsync(createAboutDto);
+            return RedirectToAction("Index", "About", new { area = "Admin" });
         }
 
+        [Authorize]
         [HttpGet]
         [Route("UpdateAbout/{id}")]
         public async Task<IActionResult> UpdateAbout(string id)
+        {
+            AboutViewBagList();
+            var value = await _aboutService.GetByIdAboutAsync(id);
+            var updateAboutDto = new UpdateAboutDto
+            {
+                AboutId = value.AboutId,
+                Address = value.Address,
+                Description = value.Description,
+                Email = value.Email,
+                Phone = value.Phone
+            };
+            return View(updateAboutDto);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("UpdateAbout/{id}")]
+        public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
+        {
+            await _aboutService.UpdateAboutAsync(updateAboutDto);
+            return RedirectToAction("Index", "About", new { area = "Admin" });
+        }
+
+        [Authorize]
+        [Route("DeleteAbout/{id}")]
+        public async Task<IActionResult> DeleteAbout(string id)
+        {
+            await _aboutService.DeleteAboutAsync(id);
+            return RedirectToAction("Index", "About", new { area = "Admin" });
+        }
+
+        void AboutViewBagList()
         {
             ViewBag.V0 = "Hakkımızda İşlemleri";
             ViewBag.V1 = "Ana Sayfa";
             ViewBag.V2 = "Hakkımızda Alanı";
             ViewBag.V3 = "Hakkımızda Biligileri Listesi";
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7000/Abouts/" + id);
-
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
-                return View(value);
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        [Route("UpdateAbout/{id}")]
-        public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
-        {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateAboutDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7000/api/Abouts/", stringContent);
-
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "About", new { area = "Admin" });
-            }
-
-            return View();
-        }
-
-        [Route("DeleteAbout/{id}")]
-        public async Task<IActionResult> DeleteAbout(string id)
-        {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync("https://localhost:7000/api/Abouts?id=" + id);
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "About", new { area = "Admin" });
-            }
-
-            return View();
         }
     }
 }
